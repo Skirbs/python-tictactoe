@@ -14,6 +14,7 @@ winning_conditions = [
     [0, 4, 8],
     [2, 4, 6],
 ]
+turns_left = 9
 have_won = False
 
 
@@ -30,8 +31,9 @@ def place_cell(cell):
     global current_player
     global game_status
     global winning_conditions
+    global turns_left
     global have_won
-
+    turns_left -= 1
     game_status[cell] = f"{current_player}"
     for winning_condition in winning_conditions:
         if (
@@ -48,6 +50,9 @@ def place_cell(cell):
 
 while not have_won:
     display_screen()
+    if turns_left <= 0:
+        print("Tie: No one won :(")
+        break
     while True:
         try:
             selected_cell = int(input(f"Select a cell to place (): "))
